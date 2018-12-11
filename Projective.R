@@ -47,6 +47,20 @@ scale.invariant <- function(A,D)
 }
 
 ###
+# Comparing the maximum of two (non-negative) values to a tolerance
+# ensures both values are within the tolerance
+#     row.radii <- sqrt(pmax(rowMeans(M*M,na.rm=TRUE),0)) # rms of each row
+#     col.radii <- sqrt(pmax(colMeans(M*M,na.rm=TRUE),0)) # rms of each column
+#     row.rv    <- cv(row.radii) # Variability of the row radii, relative to their average
+#     col.rv    <- cv(col.radii) # Variability of the column radii, relative to their average
+#     asphericity <- max(row.rv,col.rv)
+###
+asphericity <- function(M) {
+  max(cv(sqrt(pmax(rowMeans(M*M,na.rm=TRUE),0))),
+      cv(sqrt(pmax(colMeans(M*M,na.rm=TRUE),0))))
+}
+
+###
 # D <- projective.decomposition(A)
 #
 # This function computes the _model_, i.e. the parameters necessary

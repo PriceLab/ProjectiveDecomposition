@@ -19,6 +19,13 @@
 ### matrices, i.e. there are strictly positive vectors a of length m and b of
 ### length n so that Diag{a} X Diag{b} = Y.
 ###-----------------------------------------------------------------------------
+eps <- 1e-7
+
+# Coefficient of variation; the data MUST all be nonnegative
+cv  <- function(x) { sqrt(var(x))/max(mean(x),eps) }
+
+# Root-mean-square: Euclidean distance normalized for the number of dimensions
+rms <- function(x) { sqrt(mean(x*x)) }
 
 ###
 # E[A] = projective.scale(projective.decomposition(A)) = s r t(c)
@@ -30,7 +37,7 @@
 ###
 projective.scale <- function(D)
 {
-  D$rms * D$row.scale %*% t(D$col.scale)
+  D$rms * D$row.factor %*% t(D$col.factor)
 }
 
 ###
@@ -70,9 +77,9 @@ asphericity <- function(M) {
 # decomposition equation
 #     A = s Diag{r} Z Diag{c}
 # are:
-#     D$rms       = s = rms(A)
-#     D$row.scale = r
-#     D$col.scale = c
+#     D$rms        = s = rms(A)
+#     D$row.factor = r
+#     D$col.factor = c
 # These total m+n+1 values, which is typically much less than the
 # size of A or Z (m*n). When Z is required, rather than just the
 # parameters, one can either compute
@@ -106,9 +113,9 @@ projective.decomposition <- function(A,
     c <- c / g
   }
   # return value
-  list('rms'       = rms.A,
-       'row.scale' = r,
-       'col.scale' = c,
+  list('rms'        = rms.A,
+       'row.factor' = r,
+       'col.factor' = c,
        'iterations' = iter,
        'tolerance'  = asph
   )

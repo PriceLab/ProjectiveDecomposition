@@ -1,6 +1,14 @@
 ###-----------------------------------------------------------------------------
 ### Projective Decomposition:
 ###
+### Author:  Max Robinson, Institute for Systems Biology
+### Version:  1
+### Date:    11 Dec 2018
+### This code is provided under Apache license 2.0 for the purpose of illustrating
+### basic concepts. A more capable implementation is available as part of a
+### larger data analysis application, see https://github.com/PriceLab/SIGDA.
+### 
+###
 ### The scale-invariant matrix Z equivalent to the (m x n) matrix A
 ### is defined by the (projective decomposition) equation:
 ###        A     = s Diag{r} Z Diag{c}
